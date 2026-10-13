@@ -28,7 +28,7 @@ namespace YimMenu::Features
 	{
 		// Налаштування (поки константи; пізніше можна винести в меню)
 		constexpr float kMaxDistance = 60.0f; // метри
-		constexpr float kFovDegrees  = 25.0f; // конус навколо центру камери
+		constexpr float kFovDegrees  = 50.0f; // конус навколо центру камери
 		constexpr int kDamage        = 100;   // шкода магічної кулі
 		constexpr ULONGLONG kCooldownMs = 150; // захист від подвійного пострілу, якщо ввімкнено кілька режимів
 
@@ -61,12 +61,7 @@ namespace YimMenu::Features
 		{
 			std::vector<int> out;
 			for (auto ped : Pools::GetPeds())
-			{
-				if (!ped || ped.IsPlayer())
-					continue;
-				out.push_back(ped.GetHandle());
-			}
-			return out;
+			
 		}
 
 		inline V3 TargetPoint(int ped, const Target& t)
@@ -193,5 +188,5 @@ namespace YimMenu::Features
 		}
 	};
 
-	static CinematicAim _CinematicAim{"cinematicaim", "Cinematic Aim", "Story Mode only: while aiming, your shots also hit the chosen body part of the NPC nearest to the crosshair"};
+	static CinematicAim _CinematicAim{"cinematicaim", "Cinematic Aim", "Aimassist"};
 }
