@@ -1,14 +1,3 @@
-// cinematicaim.cpp
-// "Кінематографічний" aim assist для Story Mode: коли ви цілитесь (ПКМ) і стріляєте (ЛКМ),
-// додатково летить куля з вашої позиції в обрану частину тіла найближчого до центру камери НПС.
-//
-// Стиль повторює autocockweapon.cpp / nospread.cpp (LoopedCommand + статична реєстрація).
-// Кладіть поруч із ними (src/game/features/...). Якщо CMake не збирає файли автоматично
-// (GLOB), додайте цей файл у CMakeLists.txt.
-//
-// Усі натіви й сигнатури звірені з вашим Natives.hpp, перебір педів - з deleteallpeds.cpp.
-// Єдине, що лишається "на перевірку", - ID кісток RDR2 (див. Target нижче).
-
 #include "core/commands/LoopedCommand.hpp"
 #include "core/commands/IntCommand.hpp"
 #include "game/backend/Self.hpp"
