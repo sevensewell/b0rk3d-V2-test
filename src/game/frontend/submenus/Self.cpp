@@ -780,6 +780,8 @@ namespace YimMenu::Submenus
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteclip"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("nospread"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("autocock"_J));
+		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("cinematicaim"_J));
+        weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimpart"_J, "Body Part (1-8)")));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepgunsclean"_J));
 
 		weaponsGlobalsGroup->AddItem(std::make_shared<ImGuiItem>([] {
