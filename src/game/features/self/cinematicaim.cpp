@@ -88,10 +88,6 @@ namespace YimMenu::Features
 			if (!selfPed)
 				return;
 
-			// Тільки Story Mode: в онлайн-сесії функція нічого не робить.
-			if (NETWORK::NETWORK_IS_SESSION_ACTIVE())
-				return;
-
 			// Працюємо лише коли ціляться і тільки в момент пострілу.
 			if (!PAD::IS_CONTROL_PRESSED(0, (Hash)NativeInputs::INPUT_AIM))
 				return;
