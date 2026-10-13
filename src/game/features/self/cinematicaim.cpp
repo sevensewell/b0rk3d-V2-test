@@ -62,8 +62,9 @@ namespace YimMenu::Features
 			std::vector<int> out;
 			for (auto ped : Pools::GetPeds())
 			
-		};
-
+		}
+		return out;
+	}
 		inline V3 TargetPoint(int ped, const Target& t)
 		{
 			if (t.boneId != 0)
