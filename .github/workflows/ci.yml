@@ -1,22 +1,24 @@
 name: CI
 
-   on:
-     push:
-     pull_request:
-     workflow_dispatch:
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   ci:
-    runs-on: [ self-hosted, Windows ]
+    runs-on: windows-latest
     name: CI
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
 
       - name: Check CMake version
         run: cmake --version
 
       - name: Setup MSVC environment
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: ilammy/msvc-dev-cmd@v1.13.0
         with:
           arch: amd64
 
@@ -31,12 +33,12 @@ jobs:
 
       - name: Rename DLL to Terminus-dev-{GITHUB_SHA}.dll
         run: |
-          del Terminus-dev-*.dll
+          Remove-Item Terminus-dev-*.dll -ErrorAction SilentlyContinue
           ren Terminus.dll Terminus-dev-${{github.sha}}.dll
         working-directory: build/
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: binary
           path: build/Terminus-dev-*.dll
