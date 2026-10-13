@@ -1,3 +1,14 @@
+// cinematicaim.cpp
+// "Кінематографічний" aim assist для Story Mode: коли ви цілитесь (ПКМ) і стріляєте (ЛКМ),
+// додатково летить куля з вашої позиції в обрану частину тіла найближчого до центру камери НПС.
+//
+// Стиль повторює autocockweapon.cpp / nospread.cpp (LoopedCommand + статична реєстрація).
+// Кладіть поруч із ними (src/game/features/...). Якщо CMake не збирає файли автоматично
+// (GLOB), додайте цей файл у CMakeLists.txt.
+//
+// Усі натіви й сигнатури звірені з вашим Natives.hpp, перебір педів - з deleteallpeds.cpp.
+// Єдине, що лишається "на перевірку", - ID кісток RDR2 (див. Target нижче).
+
 #include "core/commands/LoopedCommand.hpp"
 #include "core/commands/IntCommand.hpp"
 #include "game/backend/Self.hpp"
@@ -155,6 +166,9 @@ namespace YimMenu::Features
 		}
 	}
 
+	// Налаштування частини тіла (окрема команда, показується в меню через IntCommandItem "cinaimpart")
+	static IntCommand _CinematicAimPart{"cinaimpart", "Cinematic Aim Body Part", "1=Head 2=Neck 3=Chest 4=Torso 5=Right Arm 6=Left Arm 7=Right Leg 8=Left Leg", 1};
+
 	// Одна функція з вибором частини тіла через IntCommand (як у OldDeadeye).
 	//   1 = Голова (трохи під капелюхом)   5 = Права рука
 	//   2 = Шия                            6 = Ліва рука
@@ -164,12 +178,6 @@ namespace YimMenu::Features
 	class CinematicAim : public LoopedCommand
 	{
 		using LoopedCommand::LoopedCommand;
-
-		IntCommand _BodyPart{
-		    "cinaimpart",
-		    "Cinematic Aim Body Part",
-		    "1=Head 2=Neck 3=Chest 4=Torso 5=Right Arm 6=Left Arm 7=Right Leg 8=Left Leg",
-		    1};
 
 		virtual void OnTick() override
 		{
@@ -184,7 +192,7 @@ namespace YimMenu::Features
 			    {0, -0.12f, 0.0f, -0.45f} // 8 ліва нога
 			};
 
-			int part = std::clamp(_BodyPart.GetState(), 1, 8);
+			int part = std::clamp(_CinematicAimPart.GetState(), 1, 8);
 			CinematicAimImpl::Tick(kParts[part - 1]);
 		}
 	};
