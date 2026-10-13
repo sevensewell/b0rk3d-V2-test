@@ -62,11 +62,6 @@ namespace YimMenu::Features
 		{
 			std::vector<int> out;
 			for (auto ped : Pools::GetPeds())
-			{
-				if (!ped || ped.IsPlayer())
-					continue;
-				out.push_back(ped.GetHandle());
-			}
 			return out;
 		}
 
@@ -96,14 +91,6 @@ namespace YimMenu::Features
 			d.selfValid  = static_cast<bool>(selfPed);
 			if (!selfPed)
 				return;
-
-			// Тільки Story Mode: в онлайн-сесії функція нічого не робить.
-			d.sessionActive = NETWORK::NETWORK_IS_SESSION_ACTIVE();
-			if (d.sessionActive)
-				return;
-
-			int self     = selfPed.GetHandle();
-			int playerId = Self::GetPlayer().GetId();
 
 			// Прицілювання: кнопка, або прапорець гравця, або активна камера прицілу.
 			d.aiming = PAD::IS_CONTROL_PRESSED(0, (Hash)NativeInputs::INPUT_AIM)
