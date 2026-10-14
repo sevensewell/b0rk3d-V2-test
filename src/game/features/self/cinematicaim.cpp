@@ -102,12 +102,6 @@ namespace YimMenu::Features
 			if (s.boneOverride != 0)
 				t.boneId = s.boneOverride;
 
-			auto& d = g_CinematicAimDebug;
-			d.ticks++;
-			d.part = part;
-			d.mode = s.mode;
-			d.assistActive = false;
-
 			auto selfPed = Self::GetPed();
 			d.selfValid  = static_cast<bool>(selfPed);
 			if (!selfPed)
