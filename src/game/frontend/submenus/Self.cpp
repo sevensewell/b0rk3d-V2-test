@@ -781,7 +781,11 @@ namespace YimMenu::Submenus
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("nospread"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("autocock"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("cinematicaim"_J));
-        weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimpart"_J, "Body Part (1-8)")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimpart"_J, "Body Part (1-8)")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimmode"_J, "Assist Mode (0 off, 1 camera, 2 mouse)")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimradius"_J, "Radius, degrees (1-45)")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimstrength"_J, "Strength % (1-100)")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("cinematicaim"_J, std::make_shared<IntCommandItem>("cinaimbullet"_J, "Magic Bullet (0/1)")));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepgunsclean"_J));
 
 		weaponsGlobalsGroup->AddItem(std::make_shared<ImGuiItem>([] {
