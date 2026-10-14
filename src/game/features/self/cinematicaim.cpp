@@ -157,7 +157,7 @@ namespace YimMenu::Features
 				if (!ped || ped.IsPlayer() || ped.GetHandle() == self)
 				{
 					d.pedsSkipped++;
-					continue;
+					return;
 				}
 				int h = ped.GetHandle();
 
