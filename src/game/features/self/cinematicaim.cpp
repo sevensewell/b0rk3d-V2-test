@@ -10,7 +10,6 @@
 
 #include "core/commands/LoopedCommand.hpp"
 #include "core/commands/IntCommand.hpp"
-#include "game/features/CinematicAimDebug.hpp"
 #include "game/backend/Self.hpp"
 #include "game/rdr/Enums.hpp"
 #include "game/rdr/Natives.hpp"
@@ -95,21 +94,6 @@ namespace YimMenu::Features
 		inline ULONGLONG g_LastShot = 0;
 		inline int g_LockedPed      = 0; // ціль, за якою тримаємось, поки ви цілитесь
 
-		inline void Tick(const Target& t, int part, const Settings& s)
-		{
-			auto& d = g_CinematicAimDebug;
-			d.ticks++;
-			d.part = part;
-			d.mode = s.mode;
-			d.assistActive = false;
-
-			auto selfPed = Self::GetPed();
-			d.selfValid  = static_cast<bool>(selfPed);
-			if (!selfPed)
-				return;
-
-			int self     = selfPed.GetHandle();
-			int playerId = Self::GetPlayer().GetId();
 
 			// Прицілювання: кнопка, або прапорець гравця, або активна камера прицілу.
 			d.aiming = PAD::IS_CONTROL_PRESSED(0, (Hash)NativeInputs::INPUT_AIM)
