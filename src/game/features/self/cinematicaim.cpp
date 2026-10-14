@@ -152,6 +152,7 @@ namespace YimMenu::Features
 			float bestScore   = 1e9f;
 
 			for (auto ped : Pools::GetPeds())
+			int h = ped.GetHandle();
 			{
 				d.pedsTotal++;
 
