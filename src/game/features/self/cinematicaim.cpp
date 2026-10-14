@@ -108,11 +108,6 @@ namespace YimMenu::Features
 			if (!selfPed)
 				return;
 
-			// Тільки Story Mode: в онлайн-сесії функція нічого не робить.
-			d.sessionActive = NETWORK::NETWORK_IS_SESSION_ACTIVE();
-			if (d.sessionActive)
-				return;
-
 			int self     = selfPed.GetHandle();
 			int playerId = Self::GetPlayer().GetId();
 
@@ -154,7 +149,7 @@ namespace YimMenu::Features
 				if (!ped || ped.IsPlayer() || ped.GetHandle() == self)
 				{
 					d.pedsSkipped++;
-					continue;
+					return;
 				}
 				int h = ped.GetHandle();
 
