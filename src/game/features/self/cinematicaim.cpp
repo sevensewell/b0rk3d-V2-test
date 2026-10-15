@@ -179,9 +179,7 @@ namespace YimMenu::Features
 					if (t.boneId != 0)
 					{
 						d.boneIndex = PED::GET_PED_BONE_INDEX(h, t.boneId);
-						d.boneIndex = PLAYER::GET_PLAYER_BONE_INDEX(h, t.boneId);
 						auto raw    = PED::GET_PED_BONE_COORDS(h, t.boneId, 0.0f, 0.0f, 0.0f);
-						auto raw    = PLAYER::GET_PLAYER_BONE_COORDS(h, t.boneId, 0.0f, 0.0f, 0.0f);
 						auto org    = ENTITY::GET_ENTITY_COORDS(h, false, true);
 						d.boneRawZero = (raw.x == 0.0f && raw.y == 0.0f && raw.z == 0.0f);
 						d.boneRelX = raw.x - org.x;
