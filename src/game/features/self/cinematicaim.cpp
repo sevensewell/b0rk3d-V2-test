@@ -141,7 +141,8 @@ namespace YimMenu::Features
 			float yaw   = cr.z * kDeg2Rad;
 			V3 camFwd   = {-std::sin(yaw) * std::cos(pitch), std::cos(yaw) * std::cos(pitch), std::sin(pitch)};
 
-			d.pedsTotal = d.pedsSkipped = d.pedsDead = d.pedsNotHuman = d.pedsOffScreen = d.pedsInRange = d.pedsInRadius = 0;
+			d.pedsTotal = d.pedsDead = d.pedsNotHuman = d.pedsOffScreen = d.pedsInRange = d.pedsInRadius = 0;
+			d.playersTotal = d.playersDead = d.playersNotHuman = d.playersOffScreen = d.playersInRange = d.playersInRadius = 0;
 			d.nearestAngle = -1.0f;
 			d.boneIdUsed   = t.boneId;
 			d.boneIndex    = -2;
@@ -154,13 +155,6 @@ namespace YimMenu::Features
 			for (auto ped : Pools::GetPeds())
 			{
 				d.pedsTotal++;
-				if (!ped || ped.IsPlayer() || ped.GetHandle() == self)
-				{
-					d.pedsSkipped++;
-					return;
-				}
-				int h = ped.GetHandle();
-
 				if (ENTITY::IS_ENTITY_DEAD(h))
 				{
 					d.pedsDead++;
@@ -177,12 +171,32 @@ namespace YimMenu::Features
 					continue;
 				}
 
+				for (auto ped : Pools::GetPeds())
+			{
+				d.playersTotal++;
+				if (ENTITY::IS_ENTITY_DEAD(h))
+				{
+					d.playersDead++;
+					continue;
+				}
+				if (!PED::IS_PED_HUMAN(h))
+				{
+					d.playersNotHuman++;
+					continue;
+				}
+				if (!ENTITY::IS_ENTITY_ON_SCREEN(h))
+				{
+					d.playersOffScreen++;
+					continue;
+				}
+
 				V3 point    = TargetPoint(h, t);
 				V3 toTarget = Sub(point, camPos);
 				float dist  = Len(toTarget);
 				if (dist < 0.5f || dist > kMaxDistance)
 					continue;
 				d.pedsInRange++;
+				d.playersInRange++
 
 				float angle = std::acos(Clamp(Dot(camFwd, Norm(toTarget)), -1.0f, 1.0f)) * kRad2Deg;
 				if (d.nearestAngle < 0.0f || angle < d.nearestAngle)
@@ -193,7 +207,9 @@ namespace YimMenu::Features
 					if (t.boneId != 0)
 					{
 						d.boneIndex = PED::GET_PED_BONE_INDEX(h, t.boneId);
+						d.boneIndex = PLAYER::GET_PLAYER_BONE_INDEX(h, t.boneId);
 						auto raw    = PED::GET_PED_BONE_COORDS(h, t.boneId, 0.0f, 0.0f, 0.0f);
+						auto raw    = PLAYER::GET_PLAYER_BONE_COORDS(h, t.boneId, 0.0f, 0.0f, 0.0f);
 						auto org    = ENTITY::GET_ENTITY_COORDS(h, false, true);
 						d.boneRawZero = (raw.x == 0.0f && raw.y == 0.0f && raw.z == 0.0f);
 						d.boneRelX = raw.x - org.x;
