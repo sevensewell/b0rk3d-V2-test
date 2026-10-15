@@ -142,7 +142,6 @@ namespace YimMenu::Features
 			V3 camFwd   = {-std::sin(yaw) * std::cos(pitch), std::cos(yaw) * std::cos(pitch), std::sin(pitch)};
 
 			d.pedsTotal = d.pedsDead = d.pedsNotHuman = d.pedsOffScreen = d.pedsInRange = d.pedsInRadius = 0;
-			d.playersTotal = d.playersDead = d.playersNotHuman = d.playersOffScreen = d.playersInRange = d.playersInRadius = 0;
 			d.nearestAngle = -1.0f;
 			d.boneIdUsed   = t.boneId;
 			d.boneIndex    = -2;
@@ -170,33 +169,6 @@ namespace YimMenu::Features
 					d.pedsOffScreen++;
 					continue;
 				}
-
-				for (auto ped : Pools::GetPeds())
-			{
-				d.playersTotal++;
-				if (ENTITY::IS_ENTITY_DEAD(h))
-				{
-					d.playersDead++;
-					continue;
-				}
-				if (!PED::IS_PED_HUMAN(h))
-				{
-					d.playersNotHuman++;
-					continue;
-				}
-				if (!ENTITY::IS_ENTITY_ON_SCREEN(h))
-				{
-					d.playersOffScreen++;
-					continue;
-				}
-
-				V3 point    = TargetPoint(h, t);
-				V3 toTarget = Sub(point, camPos);
-				float dist  = Len(toTarget);
-				if (dist < 0.5f || dist > kMaxDistance)
-					continue;
-				d.pedsInRange++;
-				d.playersInRange++
 
 				float angle = std::acos(Clamp(Dot(camFwd, Norm(toTarget)), -1.0f, 1.0f)) * kRad2Deg;
 				if (d.nearestAngle < 0.0f || angle < d.nearestAngle)
