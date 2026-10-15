@@ -5,7 +5,6 @@ namespace YimMenu::Features
 	struct CinematicAimDebug
 	{
 		bool selfValid     = false;
-		bool sessionActive = false; // true = онлайн-сесія, функція свідомо вимкнена
 		bool aiming        = false;
 		bool trigger       = false; // момент пострілу
 		unsigned weapon    = 0;
@@ -16,6 +15,12 @@ namespace YimMenu::Features
 		int pedsOffScreen  = 0;
 		int pedsInRange    = 0;
 		int pedsInRadius   = 0; // у радіусі навколо прицілу
+		int playersTotal   = 0;
+		int playersDead    = 0;
+		int playersNotHuman = 0;
+		int playersOffScreen = 0;
+		int playersInRange = 0;
+		int playersInRadius  = 0;
 		float nearestAngle = -1.0f; // найменший кут до центру камери серед живих людей на екрані
 		bool assistActive  = false; // зараз тягнемо приціл
 		float dYaw         = 0.0f;
