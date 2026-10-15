@@ -172,6 +172,13 @@ namespace YimMenu::Features
 					continue;
 				}
 
+
+				V3 point    = TargetPoint(h, t);
+				V3 toTarget = Sub(point, camPos);
+				float dist  = Len(toTarget);
+				if (dist < 0.5f || dist > kMaxDistance)
+				continue;
+
 				float angle = std::acos(Clamp(Dot(camFwd, Norm(toTarget)), -1.0f, 1.0f)) * kRad2Deg;
 				if (d.nearestAngle < 0.0f || angle < d.nearestAngle)
 				{
