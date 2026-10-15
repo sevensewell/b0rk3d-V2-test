@@ -153,7 +153,7 @@ namespace YimMenu::Features
 
 			for (auto ped : Pools::GetPeds())
 			{
-				int h - ped.GetHandle();
+				int h = ped.GetHandle();
 
 				d.pedsTotal++;
 				if (ENTITY::IS_ENTITY_DEAD(h))
