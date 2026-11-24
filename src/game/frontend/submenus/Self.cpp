@@ -31,6 +31,11 @@
 namespace YimMenu::Features
 {
 	BoolCommand _RecoveryEnabled("recoveryenabled", "Recovery Enabled", "Is the recovery feature enabled");
+  // Включает/выключает аимбот
+    BoolCommand _AimAssistEnabled("aimassistenabled", "Aim Assist", "Enable bone-targeted aim assist");
+
+    // Индекс выбранной кости (0 = Head, 1 = Neck, 2 = Torso, 3 = Left Arm, 4 = Right Arm, 5 = Left Leg, 6 = Right Leg)
+    IntCommand _AimAssistBone("aimassistbone", "Target Bone", "Select which body part to aim at", 0, 0, 6);
 }
 
 namespace YimMenu::Submenus
@@ -780,14 +785,11 @@ namespace YimMenu::Submenus
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteclip"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("nospread"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("autocock"_J));
-		namespace YimMenu::Features
-{
-    // Включает/выключает аимбот
-    BoolCommand _AimAssistEnabled("aimassistenabled", "Aim Assist", "Enable bone-targeted aim assist");
-
-    // Индекс выбранной кости (0 = Head, 1 = Neck, 2 = Torso, 3 = Left Arm, 4 = Right Arm, 5 = Left Leg, 6 = Right Leg)
-    IntCommand _AimAssistBone("aimassistbone", "Target Bone", "Select which body part to aim at", 0, 0, 6);
-}
+		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("aimassistenabled"_J));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("aimassistenabled"_J, std::make_shared<IntCommandItem>("aimassistbone"_J, "Target Bone")));
+		weaponsGlobalsGroup->AddItem(std::make_shared<ImGuiItem>([] {
+    ImGui::TextDisabled("Bone: 0=Head, 1=Neck, 2=Torso, 3=L.Hand, 4=R.Hand, 5=L.Foot, 6=R.Foot");
+}));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepgunsclean"_J));
 
 		weaponsGlobalsGroup->AddItem(std::make_shared<ImGuiItem>([] {
